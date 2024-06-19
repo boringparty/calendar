@@ -39,7 +39,7 @@ jobs:
         id: check-differences
         run: |
           if ! diff -q data/new-sports.ics data/sports.ics; then
-            echo cal files are different."
+            echo "cal files are different."
             echo "DIFFERENT_CSV=true" >> $GITHUB_ENV
           else
             echo "CSV files are the same. Skipping commit."
