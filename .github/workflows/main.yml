@@ -25,15 +25,15 @@ jobs:
             exit 1
           fi
 
-      - name: Check CSV File Size
-        id: check-csv
-        run: |
-          if [ -s data/new-sports.ics ]; then
-            echo "cal file is not empty."
-          else
-            echo "cal file is empty."
-            exit 1
-          fi
+      # - name: Check CSV File Size
+      #   id: check-csv
+      #   run: |
+      #     if [ -s data/new-sports.ics ]; then
+      #       echo "cal file is not empty."
+      #     else
+      #       echo "cal file is empty."
+      #       exit 1
+      #     fi
           
       - name: Check for Differences
         id: check-differences
@@ -46,10 +46,10 @@ jobs:
             echo "DIFFERENT_CSV=false" >> $GITHUB_ENV
           fi
 
-      - name: Overwrite CSV
-        if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
-        run: |
-          mv data/new-sports.ics data/sports.ics
+      # - name: Overwrite CSV
+      #   if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
+      #   run: |
+      #     mv data/new-sports.ics data/sports.ics
 
       - name: Commit and Push Changes
         if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
