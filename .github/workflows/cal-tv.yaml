@@ -2,7 +2,7 @@ name: Calendar - Television
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '* */2 * * *'
   workflow_dispatch: 
 
 jobs:
