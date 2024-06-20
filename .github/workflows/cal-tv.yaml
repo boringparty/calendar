@@ -7,7 +7,7 @@ on:
 
 env:
   FILE_NAME: tv
-  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G'
+  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G
 
 jobs:
   download-and-commit:
