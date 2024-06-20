@@ -1,0 +1,53 @@
+name: Sports Calendar
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Runs every day at midnight (UTC)
+  workflow_dispatch:
+
+jobs:
+  update-csv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Download New ICS
+        run: |
+          if curl -o data/new-sports.ics 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F'; then
+            echo "Cal download successful."
+          else
+            echo "Cal download failed."
+            exit 1
+          fi
+
+      - name: Overwrite CSV
+        # if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
+        run: |
+          mv data/new-sports.ics data/sports.ics
+
+      - name: Commit and Push Changes
+        # if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
+        run: |
+          git config --global user.name "hello-party"
+          git config --global user.email "github@boring.party"
+          
+          timestamp=$(date +'%Y%m%d%H%M%S')
+          branch_name="update-csv-$timestamp"
+
+          git checkout -b "$branch_name"
+
+          git add data/sports.ics
+
+          git commit -m "Update cal file"
+
+          git push origin "$branch_name"
+
+          git checkout main
+          git merge --no-ff "$branch_name"
+          git push origin main
+
+          # delete the temporary branch
+          git branch -d "$branch_name"
+          git push origin --delete "$branch_name"
