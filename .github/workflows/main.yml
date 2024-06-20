@@ -1,7 +1,7 @@
         # wget -O sports.ics 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F'
 
 
-name: Daily CSV Update
+name: Sports Calendar
 
 on:
   schedule:
