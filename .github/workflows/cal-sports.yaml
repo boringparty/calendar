@@ -1,23 +1,24 @@
-name: Calendar - Motorsport
+name: Calendar - Sports
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch: 
 
 env:
   FILE_NAME: sports
-  
+  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F
+
 jobs:
   download-and-commit:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Download file
-      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F'
+      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv "${{ env.SHEET_URL }}"
 
     - name: Configure Git
       run: |
