@@ -24,5 +24,6 @@ jobs:
         git checkout sports.ics
         git commit -m 'Add downloaded file'
         git push --force
+        git push origin master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
