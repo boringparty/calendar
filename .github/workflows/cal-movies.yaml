@@ -1,4 +1,4 @@
-name: Calendar - Movies
+name: Calendar - Movie Schedule
 
 on:
   schedule:
