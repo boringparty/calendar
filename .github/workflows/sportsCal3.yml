@@ -1,4 +1,4 @@
-name: Download and Commit File 2
+name: Download and Commit File 3
 
 on:
   schedule:
@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Download file
-      run: curl -o sports.ics https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F
+      run: wget -O sports.ics https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F
 
     - name: Commit changes
       run: |
