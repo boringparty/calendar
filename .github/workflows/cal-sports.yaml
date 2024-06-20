@@ -22,7 +22,7 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git checkout sports.ics
-        git commit -m 'Add downloaded file'
+        git commit -m -a 'Add downloaded file' || true
         git push --force
         git push origin master
       env:
