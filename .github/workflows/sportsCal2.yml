@@ -1,4 +1,4 @@
-name: Download and Commit File
+name: Download and Commit File 2
 
 on:
   schedule:
