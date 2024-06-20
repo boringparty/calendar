@@ -1,8 +1,8 @@
-name: Download and Commit File 3
+name: Calendar - Sports
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # This runs the workflow every day at midnight. Adjust the cron schedule as needed.
+    - cron: '*/30 * * * *'  # This runs the workflow every day at midnight. Adjust the cron schedule as needed.
   workflow_dispatch:  # Allows you to manually trigger the workflow
 
 jobs:
