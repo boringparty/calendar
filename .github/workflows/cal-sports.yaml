@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download file
-      run: wget -O sports.ics --accept tsv 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F'
+      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F'
 
     - name: Configure Git
       run: |
@@ -28,7 +28,7 @@ jobs:
     - name: Check for changes
       id: changes
       run: |
-        git add sports.ics
+        git add ${{ env.FILE_NAME }}.ics
         git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
 
     - name: Commit changes
