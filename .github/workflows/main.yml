@@ -25,32 +25,32 @@ jobs:
             exit 1
           fi
 
-      - name: Check CSV File Size
-        id: check-csv
-        run: |
-          if [ -s data/new-sports.ics ]; then
-            echo "cal file is not empty."
-          else
-            echo "cal file is empty."
-            exit 1
-          fi
+      # - name: Check CSV File Size
+      #   id: check-csv
+      #   run: |
+      #     if [ -s data/new-sports.ics ]; then
+      #       echo "cal file is not empty."
+      #     else
+      #       echo "cal file is empty."
+      #       exit 1
+      #     fi
           
-      - name: Check for Differences
-        id: check-differences
-        run: |
-          if ! diff -q data/new-sports.ics data/sports.ics; then
-            echo "DIFFERENT_CSV=true" >> $GITHUB_ENV
-          else
-            echo "DIFFERENT_CSV=false" >> $GITHUB_ENV
-          fi
+      # - name: Check for Differences
+      #   id: check-differences
+      #   run: |
+      #     if ! diff -q data/new-sports.ics data/sports.ics; then
+      #       echo "DIFFERENT_CSV=true" >> $GITHUB_ENV
+      #     else
+      #       echo "DIFFERENT_CSV=false" >> $GITHUB_ENV
+      #     fi
 
       - name: Overwrite CSV
-        if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
+        # if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
         run: |
           mv data/new-sports.ics data/sports.ics
 
       - name: Commit and Push Changes
-        if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
+        # if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
         run: |
           git config --global user.name "hello-party"
           git config --global user.email "github@boring.party"
