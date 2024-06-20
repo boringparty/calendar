@@ -7,7 +7,7 @@ on:
 
 env:
   FILE_NAME: sports
-  SHEET_URL: https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_%2Fpub%3Fgid%3D1961290111%26single%3Dtrue%26output%3Dtsv%26range%3DF1%3AF
+  
 
 jobs:
   download-and-commit:
@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download file
-      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv ${{ env.SHEET_URL }}
+      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F'
 
     - name: Configure Git
       run: |
