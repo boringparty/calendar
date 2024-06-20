@@ -2,8 +2,8 @@ name: Calendar - Sports
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # This runs the workflow every day at midnight. Adjust the cron schedule as needed.
-  workflow_dispatch:  # Allows you to manually trigger the workflow
+    - cron: '*/30 * * * *'
+  workflow_dispatch: 
 
 jobs:
   download-and-commit:
