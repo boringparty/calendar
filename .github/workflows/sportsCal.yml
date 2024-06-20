@@ -1,4 +1,4 @@
-name: Sports Calendar
+name: Sports Calendar 2
 
 on:
   schedule:
@@ -21,11 +21,6 @@ jobs:
             echo "Cal download failed."
             exit 1
           fi
-
-      - name: Overwrite CSV
-        # if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
-        run: |
-          mv data/new-sports.ics data/sports.ics
 
       - name: Commit and Push Changes
         # if: steps.check-csv.outcome == 'success' && env.DIFFERENT_CSV == 'true'
