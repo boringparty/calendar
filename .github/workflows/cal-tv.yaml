@@ -16,13 +16,21 @@ jobs:
     - name: Download file
       run: wget -O tv.ics --accept tsv 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G'
 
-    - name: Commit changes
-      if: always()
+    - name: Configure Git
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+    - name: Check for changes
+      id: changes
+      run: |
         git add tv.ics
+        git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
+
+    - name: Commit changes
+      if: env.has_changes == 'true'
+      run: |
         git commit -m 'Add downloaded file'
-        git push --force
+        git push origin master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
