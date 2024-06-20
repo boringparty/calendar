@@ -34,7 +34,7 @@ jobs:
     - name: Commit changes
       if: env.has_changes == 'true'
       run: |
-        git commit -m 'Add downloaded file'
+        git commit -m 'Updated Calendar'
         git push origin main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
