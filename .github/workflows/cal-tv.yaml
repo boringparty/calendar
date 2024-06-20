@@ -2,8 +2,12 @@ name: Calendar - Television
 
 on:
   schedule:
-    - cron: '* */2 * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch: 
+
+env:
+  FILE_NAME: tv
+  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G'
 
 jobs:
   download-and-commit:
@@ -11,10 +15,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Download file
-      run: wget -O tv.ics --accept tsv 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G'
+      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv "${{ env.SHEET_URL }}"
 
     - name: Configure Git
       run: |
@@ -24,7 +28,7 @@ jobs:
     - name: Check for changes
       id: changes
       run: |
-        git add tv.ics
+        git add ${{ env.FILE_NAME }}.ics
         git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
 
     - name: Commit changes
