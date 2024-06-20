@@ -44,6 +44,6 @@ This is A, B, C --- then in D I have this absolutely overkill formula
        IF(REGEXMATCH(a,"Formula1|F1-Rewatch"),"TRIGGER:-PT120M",)))))))
 ```
 
-Next up, publish the workbook and add `&single=true&output=tsv&range=F1:F` to the end of the URL. This will output the one column as a tab-separated value, which is really just plaintext since we're only showing the one column.
+Next up, publish the workbook and add `&single=true&output=tsv&range=D1:D` to the end of the URL. This will output the one column as a tab-separated value, which is really just plaintext since we're only showing the one column.
 
 Last, we feed it through the flow and have it spit out an .ics file that can be used with any calendar app as a subscription. 
