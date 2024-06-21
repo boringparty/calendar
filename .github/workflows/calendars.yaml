@@ -6,11 +6,11 @@ on:
   workflow_dispatch: 
 
 env:
-  moviesName: test_movies
+  moviesName: movies
   moviesUrl: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1504045651&single=true&output=tsv&range=K1:K
-  sportsName: test_sports
+  sportsName: sports
   sportsUrl: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F
-  tvName: test_tv
+  tvName: tv
   tvUrl: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G
 
 jobs:
