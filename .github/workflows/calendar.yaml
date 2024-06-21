@@ -6,7 +6,7 @@ on:
   workflow_dispatch: 
 
 env:
-  FILE_NAMES: "1_movies 1_tv 1_sports"
+  FILE_NAMES: "movies tv sports"
   GIDS: "1504045651 495479487 1961290111"
   RANGES: "K1:K F1:F G1:G"
   BASE_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?single=true&output=tsv"
