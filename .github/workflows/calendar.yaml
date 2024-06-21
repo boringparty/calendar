@@ -1,4 +1,4 @@
-name: Calendar - Movies
+name: Calendars 1.0
 
 on:
   schedule:
@@ -7,9 +7,9 @@ on:
 
 env:
   FILE_NAMES: "movies tv sports"
-  GIDS: "1504045651 495479487 1961290111"
-  RANGES: "K1:K F1:F G1:G"
-  BASE_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?single=true&output=tsv"
+  SHEET_URLS: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1504045651&single=true&output=tsv&range=K1:K \
+https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=F1:F \
+https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=G1:G"
 
 jobs:
   download-and-commit:
@@ -21,12 +21,10 @@ jobs:
 
     - name: Download files
       run: |
-        IFS=' ' read -r -a gids <<< "${{ env.GIDS }}"
-        IFS=' ' read -r -a ranges <<< "${{ env.RANGES }}"
+        IFS=' ' read -r -a urls <<< "${{ env.SHEET_URLS }}"
         IFS=' ' read -r -a filenames <<< "${{ env.FILE_NAMES }}"
-        for i in "${!gids[@]}"; do
-          url="${{ env.BASE_URL }}&gid=${gids[$i]}&range=${ranges[$i]}"
-          wget -O "${filenames[$i]}.ics" --accept tsv "${url}"
+        for i in "${!urls[@]}"; do
+          wget -O "${filenames[$i]}.ics" --accept tsv "${urls[$i]}"
         done
 
     - name: Configure Git
