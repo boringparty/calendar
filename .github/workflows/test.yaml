@@ -1,4 +1,4 @@
-name: Calendar - Multi
+name: Calendars
 
 on:
   schedule:
@@ -6,12 +6,12 @@ on:
   workflow_dispatch: 
 
 env:
-  FILE_NAME_1: test_movies
-  SHEET_URL_1: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1504045651&single=true&output=tsv&range=K1:K
-  FILE_NAME_2: test_sports
-  SHEET_URL_2: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F
-  FILE_NAME_3: test_tv
-  SHEET_URL_3: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G
+  moviesName: test_movies
+  moviesUrl: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1504045651&single=true&output=tsv&range=K1:K
+  sportsName: test_sports
+  sportsUrl: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F
+  tvName: test_tv
+  tvUrl: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G
 
 jobs:
   download-and-commit:
@@ -23,9 +23,9 @@ jobs:
 
     - name: Download files
       run: |
-        wget -O ${{ env.FILE_NAME_1 }}.ics --accept tsv "${{ env.SHEET_URL_1 }}"
-        wget -O ${{ env.FILE_NAME_2 }}.ics --accept tsv "${{ env.SHEET_URL_2 }}"
-        wget -O ${{ env.FILE_NAME_3 }}.ics --accept tsv "${{ env.SHEET_URL_3 }}"
+        wget -O ${{ env.moviesName }}.ics --accept tsv "${{ env.moviesUrl }}"
+        wget -O ${{ env.tvName }}.ics --accept tsv "${{ env.tvUrl }}"
+        wget -O ${{ env.sportsName }}.ics --accept tsv "${{ env.sportsUrl }}"
 
     - name: Configure Git
       run: |
@@ -35,9 +35,9 @@ jobs:
     - name: Check for changes
       id: changes
       run: |
-        git add ${{ env.FILE_NAME_1 }}.ics
-        git add ${{ env.FILE_NAME_2 }}.ics
-        git add ${{ env.FILE_NAME_3 }}.ics
+        git add ${{ env.movieName }}.ics
+        git add ${{ env.tvName }}.ics
+        git add ${{ env.sportsName }}.ics
         git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
 
     - name: Commit changes
