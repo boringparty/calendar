@@ -1,0 +1,50 @@
+name: Testing
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch: 
+
+env:
+  FILE_NAMES: "t_movies t_tv t_sports"
+  SHEET_URLS: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1504045651&single=true&output=tsv&range=K1:K \
+  https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=495479487&single=true&output=tsv&range=G1:G \
+  https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1961290111&single=true&output=tsv&range=F1:F"
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download files
+      run: |
+        IFS=' ' read -r -a urls <<< "${{ env.SHEET_URLS }}"
+        IFS=' ' read -r -a filenames <<< "${{ env.FILE_NAMES }}"
+        for i in "${!urls[@]}"; do
+          wget -O "${filenames[$i]}.ics" --accept tsv "${urls[$i]}"
+        done
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+    - name: Check for changes
+      id: changes
+      run: |
+        IFS=' ' read -r -a filenames <<< "${{ env.FILE_NAMES }}"
+        for filename in "${filenames[@]}"; do
+          git add "${filename}.ics"
+        done
+        git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
+
+    - name: Commit changes
+      if: env.has_changes == 'true'
+      run: |
+        git commit -m 'Updated Calendars'
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
