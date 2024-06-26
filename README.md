@@ -1,5 +1,5 @@
 [![Movies](https://github.com/boringparty/calendar/actions/workflows/cal-movies.yaml/badge.svg)](https://github.com/boringparty/calendar/actions/workflows/cal-movies.yaml)
-[![TV](https://github.com/boringparty/calendar/actions/workflows/cal-tv.yaml/badge.svg)](https://github.com/boringparty/calendar/actions/workflows/cal-tv.yaml)
+[![Calendar - Television](https://github.com/boringparty/calendar/actions/workflows/cal-television.yaml/badge.svg)](https://github.com/boringparty/calendar/actions/workflows/cal-television.yaml)
 [![Sports](https://github.com/boringparty/calendar/actions/workflows/cal-sports.yaml/badge.svg)](https://github.com/boringparty/calendar/actions/workflows/cal-sports.yaml)
 
 # Calendar
