@@ -44,8 +44,7 @@ This is A, B, C --- then in D I have this absolutely overkill formula
        "DESCRIPTION:"&g,
        "DTSTART;VALUE=DATE:"&TEXT(b,"YYYYMMDD"),
        "DTEND;VALUE=DATE:"&TEXT(b,"YYYYMMDD"),
-       "END:VEVENT",
-       IF(REGEXMATCH(a,"Formula1|F1-Rewatch"),"TRIGGER:-PT120M",)))))))
+       "END:VEVENT"))))))       
 ```
 
 which generates...
