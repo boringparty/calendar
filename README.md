@@ -21,7 +21,7 @@ Sun|2024-03-10|Moto3 - Qatar
 
 This is A, B, C --- then in D I have this absolutely overkill formula
 
-```lang-scala
+```scala
 =ARRAYFORMULA(
   VSTACK(
    JOIN(CHAR(13),
