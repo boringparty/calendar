@@ -1,0 +1,40 @@
+name: Calendar - Other
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch: 
+
+env:
+  FILE_NAME: other
+  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=737468657&single=true&output=tsv&range=G1:G
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download file
+      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv "${{ env.SHEET_URL }}"
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+    - name: Check for changes
+      id: changes
+      run: |
+        git add ${{ env.FILE_NAME }}.ics
+        git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
+
+    - name: Commit changes
+      if: env.has_changes == 'true'
+      run: |
+        git commit -m 'Updated Calendar'
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
