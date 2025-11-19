@@ -1,4 +1,4 @@
-name: Calendar - Agenda
+name: Widget - Agenda
 
 on:
   schedule:
