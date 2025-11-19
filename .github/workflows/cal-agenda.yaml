@@ -7,8 +7,7 @@ on:
 
 env:
   FILE_NAME: agenda
-  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1474486128&single=true&output=tsv&range=E2:E
-
+  SHEET_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRSHv8hgaDlBLG_bgq2Q6bm-Qk3dCVZAlq0nfPzYpTTq3MrJLsv0N9jmLOJZ5YWhjkwcG8chbVE3Et_/pub?gid=1474486128&single=true&output=tsv&range=E2
 
 jobs:
   download-and-commit:
@@ -19,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download file
-      run: wget -O ${{ env.FILE_NAME }}.ics --accept tsv "${{ env.SHEET_URL }}"
+      run: wget -O ${{ env.FILE_NAME }}.json --accept tsv "${{ env.SHEET_URL }}"
 
     - name: Configure Git
       run: |
@@ -29,7 +28,7 @@ jobs:
     - name: Check for changes
       id: changes
       run: |
-        git add ${{ env.FILE_NAME }}.ics
+        git add ${{ env.FILE_NAME }}.json
         git diff-index --quiet HEAD || echo "has_changes=true" >> $GITHUB_ENV
 
     - name: Commit changes
